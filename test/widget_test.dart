@@ -7,8 +7,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tvlive/%D8%AE%D9%82.dart';
-
 import 'package:tvlive/main.dart';
 
 void main() {

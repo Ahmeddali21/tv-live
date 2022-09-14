@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:device_preview/device_preview.dart';
-import 'package:tvlive/%D8%AE%D9%82.dart';
-import 'package:tvlive/vlc.dart';
-import 'Sports.dart';
-import 'aaa.dart';
-import 'home.dart';
-void main() => runApp(const MaterialApp(
-  home:home(),
-  debugShowCheckedModeBanner: true,));
+import 'package:tvlive/Sports/beinsportspremium1.dart';
+import 'package:tvlive/home.dart';
+
+
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]);
+  runApp( MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home:intro()),
+  );
+}
 
 class intro extends StatefulWidget {
   const intro({Key? key}) : super(key: key);
@@ -35,9 +38,8 @@ class _introState extends State<intro> {
     double screen_width = MediaQuery.of(context).size.width;
     double screen_height = MediaQuery.of(context).size.height;
     return MaterialApp(
-      builder: DevicePreview.appBuilder,
       home: Scaffold(
-          backgroundColor: Color(0xff57f6c0),
+          backgroundColor: Color(0xff2980b9),
           body: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
