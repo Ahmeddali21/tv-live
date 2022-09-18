@@ -9,7 +9,7 @@ void main() {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]);
   runApp( MaterialApp(
     debugShowCheckedModeBanner: false,
-    home:intro()),
+    home:home()),
   );
 }
 
