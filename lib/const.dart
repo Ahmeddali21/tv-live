@@ -14,7 +14,6 @@ class carusal extends CarouselOptions {
           enlargeCenterPage: false,
         );
 }
-
 class container extends Container {
   final BuildContext context;
   final Text text;
@@ -42,85 +41,4 @@ class container extends Container {
             ],
           ),
         );
-}
-
-class drawerr extends Drawer {
-  final Drawer draweer;
-  drawerr(this.draweer)
-      : super(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                ),
-                child: Text(
-                  'My App',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.home),
-                title: Text('Home'),
-                onTap: () {
-                  // Do something
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.settings),
-                title: Text('Settings'),
-                onTap: () {
-                  // Do something
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.help),
-                title: Text('Help'),
-                onTap: () {
-                  // Do something
-                },
-              ),
-            ],
-          ),
-        );
-}
-class SidebarMenu extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
-            ),
-            child: Text(
-              'Sidebar Menu',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-              ),
-            ),
-          ),
-          ListTile(
-            title: Text('Menu Item 1'),
-            onTap: () {
-              // Navigate to a new screen
-            },
-          ),
-          ListTile(
-            title: Text('Menu Item 2'),
-            onTap: () {
-              // Navigate to a new screen
-            },
-          ),
-        ],
-      ),
-    );
-  }
 }

@@ -42,15 +42,19 @@ dev_dependencies:
     sdk: flutter
     
   loading_animation_widget: ^1.2.0+2
-  intl: ^0.17.0
+  intl: ^0.18.0
   carousel_slider: ^4.1.1
   video_player: ^2.4.7
   http: ^0.13.5
   appinio_video_player: ^1.2.0
   keep_screen_on: ^2.0.0
-  firebase_core: ^2.4.1
+  firebase_core: ^2.10.0
   cloud_firestore: ^4.3.1
-
+  firebase_messaging: ^14.4.1
+  firebase_analytics: ^10.2.1
+  awesome_dialog: ^3.0.2
+  flutter_local_notifications: ^13.0.0
+  url_launcher: ^6.1.10
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

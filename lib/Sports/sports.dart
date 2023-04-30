@@ -2,22 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:tvlive/Sports/Abu%20Dhabi%20Sports/getpageadsport.dart';
 import 'package:tvlive/Sports/Alkass%20Sports/getKasssports.dart';
-import 'package:tvlive/Sports/Bein%20Sports/beinsport1.dart';
-import 'package:tvlive/Sports/Bein%20Sports/beinsport2.dart';
-import 'package:tvlive/Sports/Bein%20Sports/beinsport4.dart';
-import 'package:tvlive/Sports/Bein%20Sports/beinsport5.dart';
-import 'package:tvlive/Sports/Bein%20Sports/beinsport6.dart';
-import 'package:tvlive/Sports/Bein%20Sports/beinsport7.dart';
-import 'package:tvlive/Sports/Bein%20Sports/beinsportspremium1.dart';
-import 'package:tvlive/Sports/Bein%20Sports/beinsportsxtra1.dart';
-import 'package:tvlive/Sports/Bein%20Sports/beinsportsxtra2.dart';
 import 'package:tvlive/Sports/Iraq%20Sports/getIraqsports.dart';
 import 'package:tvlive/Sports/SSC%20Sports/getsscsports.dart';
 import 'package:tvlive/const.dart';
 
-import 'Bein Sports/beinsport3.dart';
-import 'Bein Sports/beinsportspremium2.dart';
-import 'Bein Sports/beinsportspremium3.dart';
 import 'Bein Sports/getpage.dart';
 import 'Dubai Sports/getDubaisports.dart';
 

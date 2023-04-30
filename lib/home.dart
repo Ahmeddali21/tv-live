@@ -1,11 +1,29 @@
+import 'dart:async';
+import 'dart:convert';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tvlive/News/news.dart';
 import 'package:tvlive/Series/series.dart';
 import 'package:tvlive/Sports/sports.dart';
+import 'package:tvlive/contact.dart';
+import 'package:tvlive/sechudle.dart';
+import 'package:tvlive/service.dart';
+import 'package:tvlive/splash.dart';
 import 'Kids/kids.dart';
 import 'Movies/movies.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:http/http.dart' as http;
+
+import 'noti.dart';
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('A message showed up :  ${message.messageId}');
+}
 
 class home extends StatefulWidget {
   const home({Key? key}) : super(key: key);
@@ -17,26 +35,75 @@ class _homeState extends State<home> {
   @override
   void initState() {
     super.initState();
-    _forcePortrait();
-  }
-
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  Future<void> _forceLandscape() async {
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeLeft,
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
     ]);
-    await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    
+    FirebaseMessaging.instance.getInitialMessage().then(
+      (message) {
+        print("FirebaseMessaging.instance.getInitialMessage");
+        if (message != null) {
+          print("New Notification");
+          // if (message.data['_id'] != null) {
+          //   Navigator.of(context).push(
+          //     MaterialPageRoute(
+          //       builder: (context) => DemoScreen(
+          //         id: message.data['_id'],
+          //       ),
+          //     ),
+          //   );
+          // }
+        }
+      },
+    );
+    FirebaseMessaging.onMessage.listen(
+      (message) {
+        print("FirebaseMessaging.onMessage.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data11 ${message.data}");
+           LocalNotificationService.createanddisplaynotification(message);
+
+        }
+      },
+    );
+        FirebaseMessaging.onMessageOpenedApp.listen(
+      (message) {
+        print("FirebaseMessaging.onMessageOpenedApp.listen");
+        if (message.notification != null) {
+          print(message.notification!.title);
+          print(message.notification!.body);
+          print("message.data22 ${message.data['_id']}");
+        }
+      },
+    );
+    	  Future<void> getDeviceTokenToSendNotification() async {
+    		final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+    		final token = await _fcm.getToken();
+    		var deviceTokenToSendPushNotification = token.toString();
+    		print("Token Value $deviceTokenToSendPushNotification");
+  	}
   }
 
-  Future<void> _forcePortrait() async {
-    await SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      if (index == 1) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => sechudle()));
+      }
+      if (index == 2) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => contact()));
+      }
+      _selectedIndex = index;
+    });
   }
 
   @override
   void dispose() {
-    _forceLandscape();
     super.dispose();
   }
 
@@ -45,26 +112,57 @@ class _homeState extends State<home> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return OrientationBuilder(builder: (context, orientation) {
-      orientation: DeviceOrientation.portraitUp;
+      orientation:
+      DeviceOrientation.portraitUp;
       return SafeArea(
           child: Scaffold(
+              bottomNavigationBar: BottomNavigationBar(
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(CupertinoIcons.home),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      CupertinoIcons.time,
+                    ),
+                    label: 'Sechudle',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      CupertinoIcons.phone,
+                    ),
+                    label: 'Contact',
+                  ),
+                ],
+                currentIndex: _selectedIndex,
+                selectedItemColor: Colors.blue,
+                onTap: _onItemTapped,
+              ),
               appBar: AppBar(
-                backgroundColor: Color.fromARGB(255, 243, 243, 247),
+                automaticallyImplyLeading: false,
+                backgroundColor: const Color.fromARGB(255, 243, 243, 247),
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Image.asset(
-                          'Images/tv.png',
-                          scale: 10,
-                        ),
-                      ],
+                    Image.asset(
+                      'Images/tv.png',
+                      scale: 10,
                     ),
+                    SizedBox(
+                      width: size.width * 0.30,
+                    ),
+                    const Text(
+                      'Home',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    )
                   ],
                 ),
               ),
-              backgroundColor: const Color(0xff2980b9),
+              backgroundColor: Color.fromRGBO(41, 128, 185, 1),
               body: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
@@ -123,7 +221,7 @@ class _homeState extends State<home> {
                     SizedBox(
                       height: size.height / 75,
                     ),
-                    movies(),
+                    const movies(),
                     Divider(
                         height: size.height / 50,
                         color: Colors.black,
@@ -151,7 +249,7 @@ class _homeState extends State<home> {
                     SizedBox(
                       height: size.height / 75,
                     ),
-                    series(),
+                    const series(),
                     Divider(
                         height: size.height / 50,
                         color: Colors.black,
@@ -179,7 +277,7 @@ class _homeState extends State<home> {
                     SizedBox(
                       height: size.height / 75,
                     ),
-                    news(),
+                    const news(),
                     Divider(
                         height: size.height / 50,
                         color: Colors.black,
@@ -207,7 +305,7 @@ class _homeState extends State<home> {
                     SizedBox(
                       height: size.height / 75,
                     ),
-                    kids(),
+                    const kids(),
                     SizedBox(
                       height: size.height / 75,
                     ),

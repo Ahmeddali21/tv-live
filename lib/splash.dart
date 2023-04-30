@@ -1,8 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tvlive/home.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+import 'Sports/Bein Sports/beinsport1.dart';
+
 class splash extends StatefulWidget {
   const splash({Key? key}) : super(key: key);
   @override
@@ -33,21 +36,26 @@ class _splashState extends State<splash> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SafeArea(
-          child: Scaffold(
-              backgroundColor: const Color(0xff2980b9),
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                  Image.asset('Images/tv.png',
-                scale: 2,),
-                SizedBox(height: 15,),
-             LoadingAnimationWidget.staggeredDotsWave(
-              color: Colors.black,
-          size: 75,
-      ),
-                ],),
-              )));
+        child: Scaffold(
+            backgroundColor: const Color(0xff2980b9),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'Images/tv.png',
+                    scale: 2,
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  LoadingAnimationWidget.staggeredDotsWave(
+                    color: Colors.black,
+                    size: size.height*0.09,
+                  ),
+                ],
+              ),
+            )));
   }
 }
